@@ -1,0 +1,42 @@
+{
+  "name": "pumpfun-wallet-research",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "jest --runInBand",
+    "test:scan-memory": "node --expose-gc --max-old-space-size=256 tests/scan-streaming-memory.mjs",
+    "test:wallet-pnl": "PRINT_WALLET_PNL=1 jest --runInBand --runTestsByPath tests/wallet-pnl.test.ts",
+    "test:portfolio-pnl": "PRINT_WALLET_PNL=1 jest --runInBand --runTestsByPath tests/wallet-pnl.test.ts -t portfolio",
+    "test:wallet-handles": "PRINT_WALLET_PNL=1 jest --runInBand --runTestsByPath tests/wallet-pnl.test.ts -t 'candidate Pump.fun handles'",
+    "test:wallet-bought-tokens": "node --test tests/wallet-bought-token-counts.test.mjs",
+    "test:wallet-callout-trades": "node --test tests/wallet-callout-trades.test.mjs tests/wallet-callout-trades-fixture.test.mjs",
+    "fetch:wallet-callout-trades": "node scripts/fetch-wallet-callout-trades.mjs",
+    "fetch:wallet-bought-tokens": "node scripts/fetch-wallet-bought-token-counts.mjs --retry-incomplete",
+    "report:wallet-matrix": "node scripts/report-wallet-filter-matrix.mjs",
+    "collect:candidates": "node scripts/collect-callout-candidates.mjs",
+    "test:candidates-fixture": "node scripts/collect-callout-candidates.mjs --offline",
+    "fetch:candidate-details": "node scripts/fetch-callout-candidate-details.mjs",
+    "test:candidate-details": "node --test tests/callout-candidate-details.test.mjs",
+    "fetch:transfer-comparison": "node scripts/fetch-transfer-comparison.mjs --live",
+    "report:transfer-comparison": "node scripts/report-transfer-comparison.mjs",
+    "test:transfer-comparison": "node --test tests/transfer-comparison.test.mjs",
+    "fetch:candidate-main-transfers": "node scripts/fetch-candidate-main-transfers.mjs --live",
+    "report:candidate-main-transfers": "node scripts/report-candidate-main-transfers.mjs",
+    "test:candidate-main-transfers": "node --test tests/candidate-main-transfers.test.mjs",
+    "test:live": "RUN_LIVE_TESTS=1 jest --runInBand --runTestsByPath tests/callout-window.test.ts",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "devDependencies": {
+    "@types/chrome": "0.1.43",
+    "@types/jest": "29.5.14",
+    "@types/node": "24.0.0",
+    "esbuild": "0.25.10",
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0",
+    "ts-jest": "29.4.5",
+    "typescript": "5.9.3"
+  }
+}

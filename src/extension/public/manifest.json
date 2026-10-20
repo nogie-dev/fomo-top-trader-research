@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Pump.fun Wallet Research",
+  "version": "0.1.0",
+  "description": "Research wallet activity around Pump.fun token callouts.",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "Wallet Research — 분석 결과",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://pump.fun/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "host_permissions": [
+    "https://*.quiknode.pro/*",
+    "https://frontend-api-v3.pump.fun/*",
+    "https://profile-api.pump.fun/*"
+  ]
+}
